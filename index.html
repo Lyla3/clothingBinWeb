@@ -91,6 +91,7 @@
 			var lines = data.split('\n');
 			for (var i = 0; i < lines.length; i++) {
 				var lineData = lines[i].split(',');
+				var labelContent = parseFloat(lineData[0]);
 				var lat = parseFloat(lineData[1]);
 				var lng = parseFloat(lineData[2]);
 
@@ -100,6 +101,20 @@
 				};
 
 				var newMarker = new naver.maps.Marker(newMarkerOptions);
+
+				var labelOptions = {
+                        content: labelContent,
+                        position: new naver.maps.LatLng(lat, lng),
+                        map: map
+                    };
+
+					var label = new naver.maps.Marker(labelOptions);
+                    naver.maps.Event.addListener(newMarker, 'mouseover', function() {
+                        label.setMap(map);
+                    });
+                    naver.maps.Event.addListener(newMarker, 'mouseout', function() {
+                        label.setMap(null);
+                    });
 			}
 		}
 	});
