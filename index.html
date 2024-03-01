@@ -30,7 +30,7 @@
 <body class="is-preload">
     <div class="container">
         <section class="section" id="section-3">
-            <h1>오시는 길2</h1>
+            <h1>오시는 길5</h1>
             <div id="map"></div>
             <code id="snippet" class="snippet"></code>
             <div id="con"></div>
@@ -52,7 +52,7 @@
                 var lines = data.split('\n');
                 for (var i = 0; i < lines.length; i++) {
                     var lineData = lines[i].split(',');
-                    createMarker(parseFloat(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
+                    createMarker(parseString(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
                 }
             }
         });
