@@ -25,7 +25,7 @@
 <body class="is-preload">
     <div class="container">
         <section class="section" id="section-3">
-            <h1>오시는 길2</h1>
+            <h1>오시는 길3</h1>
             <div id="map"></div>
             <code id="snippet" class="snippet"></code>
             <div id="con"></div>
@@ -47,42 +47,39 @@
                 var lines = data.split('\n');
                 for (var i = 0; i < lines.length; i++) {
                     var lineData = lines[i].split(',');
-                    var labelContent = parseFloat(lineData[0]);
-                    var lat = parseFloat(lineData[1]);
-                    var lng = parseFloat(lineData[2]);
-
-                    // IIFE를 사용하여 클로저 문제 해결
-                    (function (labelContent, lat, lng) {
-                        var newMarkerOptions = {
-                            position: new naver.maps.LatLng(lat, lng),
-                            map: map
-                        };
-
-                        var newMarker = new naver.maps.Marker(newMarkerOptions);
-
-                        var contentString = [
-                            '<div class="iw_inner">',
-                            '   <h3>마커 정보</h3>',
-                            '   <p>마커 내용: ' + labelContent + '<br>',
-                            '       좌표: ' + lat + ', ' + lng + '</p>',
-                            '</div>'
-                        ].join('');
-
-                        var infowindow = new naver.maps.InfoWindow({
-                            content: contentString
-                        });
-
-                        naver.maps.Event.addListener(newMarker, 'click', function (e) {
-                            if (infowindow.getMap()) {
-                                infowindow.close();
-                            } else {
-                                infowindow.open(map, newMarker);
-                            }
-                        });
-                    })(labelContent, lat, lng);
+                    createMarker(parseFloat(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
                 }
             }
         });
+
+        function createMarker(labelContent, lat, lng) {
+            var markerOptions = {
+                position: new naver.maps.LatLng(lat, lng),
+                map: map
+            };
+
+            var marker = new naver.maps.Marker(markerOptions);
+
+            var contentString = [
+                '<div class="iw_inner">',
+                '   <h3>마커 정보</h3>',
+                '   <p>마커 내용: ' + labelContent + '<br>',
+                '       좌표: ' + lat + ', ' + lng + '</p>',
+                '</div>'
+            ].join('');
+
+            var infowindow = new naver.maps.InfoWindow({
+                content: contentString
+            });
+
+            naver.maps.Event.addListener(marker, 'click', function (e) {
+                if (infowindow.getMap()) {
+                    infowindow.close();
+                } else {
+                    infowindow.open(map, marker);
+                }
+            });
+        }
     </script>
 </body>
 
