@@ -65,26 +65,28 @@
             loadData(selectedFile);
         });
 
-        function loadData(csvFile) {
-            // 현재 지도에 표시된 마커들 제거
-            map.markers.forEach(function (marker) {
-                marker.setMap(null);
-            });
+		function loadData(csvFile) {
+			// 현재 지도에 표시된 마커들 초기화
+			if (map.markers && map.markers.length > 0) {
+				map.markers.forEach(function (marker) {
+					marker.setMap(null);
+				});
+			}
 
-            $.ajax({
-                url: csvFile,
-                dataType: 'text',
-                success: function (data) {
-                    var lines = data.split('\n');
-                    for (var i = 0; i < lines.length; i++) {
-                        var lineData = lines[i].split(',');
-                    	createMarker(String(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
+			$.ajax({
+				url: csvFile,
+				dataType: 'text',
+				success: function (data) {
+					var lines = data.split('\n');
+					for (var i = 0; i < lines.length; i++) {
+						var lineData = lines[i].split(',');
+						createMarker(String(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
 						console.log(lineData[0]);
+					}
+				}
+			});
+		}
 
-                    }
-                }
-            });
-        }
 
         function createMarker(labelContent, lat, lng) {
             var markerOptions = {
