@@ -23,27 +23,6 @@
 		</section>
 	  </div>
 	  
-	
-	<!-- <body>
-		<h1>네이버 지도 예시</h1>
-		<div id="map"></div>
-
-	  <script>
-        var mapOptions = {
-            center: new naver.maps.LatLng(37.5665, 126.9780), // 지도 초기 위치 설정
-            zoom: 10 // 지도 확대/축소 레벨 설정
-        };
-
-        var map = new naver.maps.Map('map', mapOptions); // 지도 생성
-
-        // 지도에 마커 추가 예시
-        var markerOptions = {
-            position: new naver.maps.LatLng(37.5665, 126.9780),
-            map: map
-        };
-
-        var marker = new naver.maps.Marker(markerOptions);
-    </script> -->
 
 <head>
     <meta charset="UTF-8">
@@ -146,7 +125,15 @@
 	  </script> -->
 
 	<body class="is-preload">
-
+		<div class="container">
+			<section class="section" id="section-3">
+				<h1>오시는 길</h1>
+				<div id="map" style="width: 70%; height: 300px; margin:auto"></div>
+				<div id="markerCoordinates"></div>
+				<code id="snippet" class="snippet"></code>
+			</section>
+		</div>
+		
 		<!-- Sidebar -->
 			<section id="sidebar">
 				<div class="inner">
