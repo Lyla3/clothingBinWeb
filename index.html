@@ -33,7 +33,7 @@
 		</style>
 		<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2zcj0zqnez"></script>
 	</head>
-	<body>
+	<!-- <body>
 		<h1>네이버 지도 예시</h1>
 		<div id="map"></div>
 
@@ -52,7 +52,58 @@
         };
 
         var marker = new naver.maps.Marker(markerOptions);
-    </script>
+    </script> -->
+
+<head>
+    <meta charset="UTF-8">
+    <title>네이버 지도에 마커 추가 예시</title>
+    <style>
+        #map {
+            width: 500px;
+            height: 400px;
+        }
+    </style>
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2zcj0zqnez"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<script>
+	var mapOptions = {
+		center: new naver.maps.LatLng(37.5665, 126.9780), // 지도 초기 위치 설정
+		zoom: 10 // 지도 확대/축소 레벨 설정
+	};
+
+	var map = new naver.maps.Map('map', mapOptions); // 지도 생성
+
+	// 지도에 기존 마커 추가
+	var markerOptions = {
+		position: new naver.maps.LatLng(37.5665, 126.9780),
+		map: map
+	};
+
+	var marker = new naver.maps.Marker(markerOptions);
+
+	// CSV 파일에서 좌표값을 읽어와서 마커 추가
+	$.ajax({
+		url: 'data.csv',
+		dataType: 'text',
+		success: function(data) {
+			var lines = data.split('\n');
+			for (var i = 0; i < lines.length; i++) {
+				var lineData = lines[i].split(',');
+				var lat = parseFloat(lineData[0]);
+				var lng = parseFloat(lineData[1]);
+
+				var newMarkerOptions = {
+					position: new naver.maps.LatLng(lat, lng),
+					map: map
+				};
+
+				var newMarker = new naver.maps.Marker(newMarkerOptions);
+			}
+		}
+	});
+</script>
 
 	  <!-- 각자 발급받은 Client ID 값 넣기
 	  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2zcj0zqnez"></script>
