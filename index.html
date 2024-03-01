@@ -14,7 +14,7 @@
     <style>
         #map {
             width: 70%;
-            height: 300px;
+            height: 500px;
             margin: auto;
         }
 
@@ -30,10 +30,21 @@
 <body class="is-preload">
     <div class="container">
         <section class="section" id="section-3">
-            <h1>오시는 길3</h1>
+            <h1>의류수거함</h1>
+
+            <!-- 구 선택 목록 추가 -->
+            
+
             <div id="map"></div>
+
+			<label for="selectGu">구 선택:</label>
+            <select id="selectGu">
+                <option value="data_dongjak.csv">동작구</option>
+                <option value="data_Eunpyeong.csv">은평구</option>
+                <!-- 다른 구들도 필요한 만큼 추가 -->
+            </select>
+
             <code id="snippet" class="snippet"></code>
-            <div id="con"></div>
         </section>
     </div>
 
@@ -45,17 +56,33 @@
 
         var map = new naver.maps.Map('map', mapOptions);
 
-        $.ajax({
-            url: 'data.csv',
-            dataType: 'text',
-            success: function (data) {
-                var lines = data.split('\n');
-                for (var i = 0; i < lines.length; i++) {
-                    var lineData = lines[i].split(',');
-                    createMarker(String(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
-                }
-            }
+        // 초기에 강남구의 데이터를 로드
+        loadData('data_gangnam.csv');
+
+        // 구 선택 목록에 이벤트 리스너 추가
+        document.getElementById('selectGu').addEventListener('change', function () {
+            var selectedFile = this.value;
+            loadData(selectedFile);
         });
+
+        function loadData(csvFile) {
+            // 현재 지도에 표시된 마커들 제거
+            map.markers.forEach(function (marker) {
+                marker.setMap(null);
+            });
+
+            $.ajax({
+                url: csvFile,
+                dataType: 'text',
+                success: function (data) {
+                    var lines = data.split('\n');
+                    for (var i = 0; i < lines.length; i++) {
+                        var lineData = lines[i].split(',');
+                        createMarker(String(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
+                    }
+                }
+            });
+        }
 
         function createMarker(labelContent, lat, lng) {
             var markerOptions = {
