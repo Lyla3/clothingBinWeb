@@ -25,7 +25,7 @@
 <body class="is-preload">
     <div class="container">
         <section class="section" id="section-3">
-            <h1>오시는 길3</h1>
+            <h1>오시는 길4</h1>
             <div id="map"></div>
             <code id="snippet" class="snippet"></code>
             <div id="con"></div>
@@ -60,13 +60,7 @@
 
             var marker = new naver.maps.Marker(markerOptions);
 
-            var contentString = [
-                '<div class="iw_inner">',
-                '   <h3>마커 정보</h3>',
-                '   <p>마커 내용: ' + labelContent + '<br>',
-                '       좌표: ' + lat + ', ' + lng + '</p>',
-                '</div>'
-            ].join('');
+            var contentString = labelContent;
 
             var infowindow = new naver.maps.InfoWindow({
                 content: contentString
