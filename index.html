@@ -74,9 +74,6 @@
 
                     naver.maps.Event.addListener(newMarker, 'click', function (e) {
                         var markerPosition = e.coord;
-                        var markerInfoElement = document.getElementById('markerInfo');
-                        markerInfoElement.innerText = '마커 좌표: ' + markerPosition.toString();
-
                         var markerCoordinatesElement = document.getElementById('markerCoordinates');
                         markerCoordinatesElement.innerText = '클릭된 마커의 좌표: ' + markerPosition.toString();
                     });
