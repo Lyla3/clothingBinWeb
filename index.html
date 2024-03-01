@@ -30,7 +30,7 @@
 <body class="is-preload">
     <div class="container">
         <section class="section" id="section-3">
-            <h1>의류수거함4</h1>
+            <h1>의류수거함5</h1>
 
             <!-- 구 선택 목록 추가 -->
             <label for="selectGu">구 선택:</label>
@@ -54,6 +54,8 @@
         var map = new naver.maps.Map('map', mapOptions);
 
         // 초기에 강남구의 데이터를 로드
+        var markers = [];
+
         loadData('data_dongjak.csv');
 
         // 구 선택 목록에 이벤트 리스너 추가
@@ -64,8 +66,8 @@
 
         function loadData(csvFile) {
             // 현재 지도에 표시된 마커들 초기화
-            if (map.markers && map.markers.length > 0) {
-                map.markers.forEach(function (marker) {
+            if (markers && markers.length > 0) {
+                markers.forEach(function (marker) {
                     marker.setMap(null);
                 });
             }
@@ -91,6 +93,7 @@
             };
 
             var marker = new naver.maps.Marker(markerOptions);
+            markers.push(marker);
 
             var contentString = [
                 '<div class="iw_inner">',
