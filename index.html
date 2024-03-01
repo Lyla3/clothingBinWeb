@@ -35,7 +35,6 @@
         <section class="section" id="section-3">
             <h1>오시는 길</h1>
             <div id="map"></div>
-            <div id="markerCoordinates"></div>
             <code id="snippet" class="snippet"></code>
         </section>
     </div>
@@ -82,8 +81,7 @@
 
                     naver.maps.Event.addListener(newMarker, 'click', function (e) {
                         var markerPosition = e.coord;
-                        var markerCoordinatesElement = document.getElementById('markerCoordinates');
-                        markerCoordinatesElement.innerText = '클릭된 마커의 좌표: ' + markerPosition.toString();
+                        alert('클릭된 마커의 좌표: ' + markerPosition.toString());
                     });
                 }
             }
