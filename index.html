@@ -7,7 +7,7 @@
 			<meta property="og:type" content="website">
 			<meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Purple126/v4/5c/b5/5a/5cb55a30-8f35-1e3e-27c1-347c50c381a2/AppIcon-0-0-1x_U007ephone-0-85-220.png/460x0w.webp">
 			<meta property="og:description" content="내 주변의 의류수거함 찾아드려요">
-		<title>Hyperspace by HTML5 UP</title>
+		<title>의류수거함 어디있지?</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -19,6 +19,7 @@
 			<h1>오시는 길</h1>
 			<div id="map" style="width: 70%; height: 300px; margin:auto"></div>
 			<code id="snippet" class="snippet"></code>
+
 		</section>
 	  </div>
 	  
@@ -57,6 +58,10 @@
 <head>
     <meta charset="UTF-8">
     <title>네이버 지도에 마커 추가 예시</title>
+	<div id="markerInfo"></div> <!-- 마커 정보를 표시할 요소 -->
+
+    <div id="markerCoordinates"></div> <!-- 클릭된 마커의 좌표를 표시할 영역 -->
+
     <style>
         #map {
             width: 500px;
@@ -121,6 +126,14 @@
                         var markerPosition = e.coord; // 클릭된 마커의 좌표
                         var markerInfoElement = document.getElementById('markerInfo');
                         markerInfoElement.innerText = '마커 좌표: ' + markerPosition.toString();
+						
+						var markerPosition = e.coord; // 클릭된 마커의 좌표
+                        var markerInfoElement = document.getElementById('markerInfo');
+                        markerInfoElement.innerText = '마커 좌표: ' + markerPosition.toString();
+
+                        var markerCoordinatesElement = document.getElementById('markerCoordinates');
+                        markerCoordinatesElement.innerText = '클릭된 마커의 좌표: ' + markerPosition.toString();
+                   
                     });
 			}
 		}
