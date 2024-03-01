@@ -22,12 +22,51 @@
 		</section>
 	  </div>
 	  
-	  <!-- 각자 발급받은 Client ID 값 넣기 -->
+	  <head>
+		<meta charset="UTF-8">
+		<title>네이버 지도 예시</title>
+		<style>
+			#map {
+				width: 500px;
+				height: 400px;
+			}
+		</style>
+		<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=2zcj0zqnez"></script>
+	</head>
+	<body>
+		<h1>네이버 지도 예시</h1>
+		<div id="map"></div>
+
+	  <script>
+        var mapOptions = {
+            center: new naver.maps.LatLng(37.5665, 126.9780), // 지도 초기 위치 설정
+            zoom: 10 // 지도 확대/축소 레벨 설정
+        };
+
+        var map = new naver.maps.Map('map', mapOptions); // 지도 생성
+
+        // 지도에 마커 추가 예시
+        var markerOptions = {
+            position: new naver.maps.LatLng(37.5665, 126.9780),
+            map: map
+        };
+
+        var marker = new naver.maps.Marker(markerOptions);
+    </script>
+
+	  <!-- 각자 발급받은 Client ID 값 넣기
 	  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2zcj0zqnez"></script>
 		  <script id="code">
 			var mapDiv = document.getElementById('map');
 			var map = new naver.maps.Map(mapDiv);
-	  </script>
+
+			var markerOptions = {
+            position: new naver.maps.LatLng(37.5665, 126.9780),
+            map: map
+        };
+
+        var marker = new naver.maps.Marker(markerOptions);
+	  </script> -->
 
 	<body class="is-preload">
 
