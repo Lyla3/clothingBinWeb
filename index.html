@@ -89,6 +89,7 @@
 	var marker = new naver.maps.Marker(markerOptions);
 
 	// CSV 파일에서 좌표값을 읽어와서 마커 추가
+	<div id="markerCoordinates"></div>
 	$.ajax({
 		url: 'data.csv',
 		dataType: 'text',
@@ -126,7 +127,7 @@
                         var markerPosition = e.coord; // 클릭된 마커의 좌표
                         var markerInfoElement = document.getElementById('markerInfo');
                         markerInfoElement.innerText = '마커 좌표: ' + markerPosition.toString();
-						
+
 						var markerPosition = e.coord; // 클릭된 마커의 좌표
                         var markerInfoElement = document.getElementById('markerInfo');
                         markerInfoElement.innerText = '마커 좌표: ' + markerPosition.toString();
