@@ -41,7 +41,7 @@
             <select id="selectGu">
                 <option value="data_dongjak.csv">동작구</option>
                 <option value="data_Eunpyeong.csv">은평구</option>
-                <!-- 다른 구들도 필요한 만큼 추가 -->
+                <!-- 다른 구들도 추가 -->
             </select>
 
             <code id="snippet" class="snippet"></code>
@@ -57,7 +57,7 @@
         var map = new naver.maps.Map('map', mapOptions);
 
         // 초기에 강남구의 데이터를 로드
-        loadData('data_gangnam.csv');
+        loadData('data_dongjak.csv');
 
         // 구 선택 목록에 이벤트 리스너 추가
         document.getElementById('selectGu').addEventListener('change', function () {
