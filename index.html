@@ -115,6 +115,13 @@
                     naver.maps.Event.addListener(newMarker, 'mouseout', function() {
                         label.setMap(null);
                     });
+					
+					// 마커 클릭 이벤트 리스너 등록
+                    naver.maps.Event.addListener(newMarker, 'click', function(e) {
+                        var markerPosition = e.coord; // 클릭된 마커의 좌표
+                        var markerInfoElement = document.getElementById('markerInfo');
+                        markerInfoElement.innerText = '마커 좌표: ' + markerPosition.toString();
+                    });
 			}
 		}
 	});
