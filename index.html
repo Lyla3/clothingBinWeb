@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>의류수거함5</title>
+    <title>의류수거함6</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -130,9 +130,12 @@
                     userCircle = new naver.maps.Circle({
                         map: map,
                         center: userLatLng,
-                        radius: 50,  // 반경 크기 조절
-                        fillColor: 'blue',
-                        fillOpacity: 0.3
+                        radius: 100,  // 반경 100m
+                        strokeColor: '#00f',
+                        strokeOpacity: 0.3,
+                        strokeWeight: 1,
+                        fillColor: '#00f',
+                        fillOpacity: 0.1
                     });
 
                     map.setCenter(userLatLng);  // 지도의 중심을 유저의 현재 위치로 설정
