@@ -31,7 +31,7 @@
 <body class="is-preload">
     <div class="container">
         <section class="section" id="section-3">
-            <h1>" 의류수거함6 "</h1>
+            <h1>의류수거함6</h1>
 
             <!-- 구 선택 목록 추가 -->
             <label for="selectGu"> 구 선택: </label>
@@ -139,6 +139,8 @@
                     });
 
                     map.setCenter(userLatLng);  // 지도의 중심을 유저의 현재 위치로 설정
+					//지도 확대
+					map.setZoom(15);
                 }, function (error) {
                     console.error('Error getting user location:', error);
                 });
