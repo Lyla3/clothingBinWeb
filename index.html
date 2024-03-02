@@ -100,6 +100,7 @@
                 '   <h3>마커 정보</h3>',
                 '   <p>주소: ' + labelContent + '<br>',
                 '       좌표: ' + lat + ', ' + lng + '</p>',
+				'   <button onclick="copyAddress(\'' + labelContent + '\')">주소복사</button>',
                 '</div>'
             ].join('');
 
@@ -115,6 +116,15 @@
                 }
             });
         }
+		function copyAddress(address) {
+			// 주소를 클립보드에 복사하는 코드
+			var dummy = document.createElement("textarea");
+			document.body.appendChild(dummy);
+			dummy.value = address;
+			dummy.select();
+			document.execCommand("copy");
+			document.body.removeChild(dummy);
+		}
 
         function getUserLocation() {
             if (navigator.geolocation) {
