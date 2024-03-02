@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>의류수거함 어디있지?</title>
+    <title>의류수거함5</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -23,7 +23,8 @@
             color: black;
         }
     </style>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2zcj0zqnez"></script>
+    <script type="text/javascript"
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2zcj0zqnez"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
@@ -39,6 +40,8 @@
                 <option value="data_Eunpyeong.csv">은평구</option>
                 <!-- 다른 구들도 추가 -->
             </select>
+
+            <button onclick="getUserLocation()">현재 위치 확인</button>
 
             <div id="map"></div>
             <code id="snippet" class="snippet"></code>
@@ -114,6 +117,19 @@
                     infowindow.open(map, marker);
                 }
             });
+        }
+
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var userLatLng = new naver.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    map.setCenter(userLatLng);  // 지도의 중심을 유저의 현재 위치로 설정
+                }, function (error) {
+                    console.error('Error getting user location:', error);
+                });
+            } else {
+                console.error('Geolocation is not supported by this browser.');
+            }
         }
     </script>
 </body>
