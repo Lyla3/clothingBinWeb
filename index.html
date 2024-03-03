@@ -110,7 +110,7 @@
                 '   <h3>마커 정보</h3>',
                 '   <p>주소: ' + labelContent + '<br>',
                 '       좌표: ' + lat + ', ' + lng + '</p>',
-				'   <div class="button-container" style="width: 80%; text-align: center;"><button class="copy-button" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
+				'   <div class="button-container" style="width: 100%; text-align: center; padding: 10px;"><button class="copy-button" style="padding: 5px 10px;" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
 				// '   <div class="button-container"><button class="copy-button" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
                 '</div>'
             ].join('');
@@ -124,7 +124,7 @@
                     infowindow.close();
                 } else {
                     infowindow.open(map, marker);
-					 // infowindow 열릴 때, 버튼을 가운데 정렬
+					 // infowindow  열릴 때, 버튼을 가운데 정렬
 					 var buttonContainer = infowindow.getContentElement().querySelector('.button-container');
             		buttonContainer.style.textAlign = 'center';
                 }
