@@ -155,14 +155,35 @@
             });
         }
 		function copyAddress(address) {
-			// 주소를 클립보드에 복사하는 코드
-			var dummy = document.createElement("textarea");
+			 // 주소를 클립보드에 복사하는 코드
+			 var dummy = document.createElement("textarea");
 			document.body.appendChild(dummy);
 			dummy.value = address;
 			dummy.select();
 			document.execCommand("copy");
 			document.body.removeChild(dummy);
-		}
+
+			// 팝업 알림 띄우기
+			var popup = document.createElement("div");
+			popup.style.position = "fixed";
+			popup.style.bottom = "10px";
+			popup.style.left = "50%";
+			popup.style.transform = "translateX(-50%)";
+			popup.style.backgroundColor = "#4247A6";
+			popup.style.color = "white";
+			popup.style.padding = "10px";
+			popup.style.borderRadius = "5px";
+			popup.style.zIndex = "9999";
+			popup.textContent = "클립보드에 복사되었습니다";
+
+			document.body.appendChild(popup);
+
+			// 2초 뒤에 팝업 알림 닫기
+			setTimeout(function () {
+				document.body.removeChild(popup);
+			}, 2000);
+	}
+				
 
         function getUserLocation() {
             if (navigator.geolocation) {
