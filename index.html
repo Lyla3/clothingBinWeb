@@ -23,10 +23,10 @@
             color: black;
         }
 		.copy-button {
-        background-color: #007bff; /* 배경색: 파란색 */
+        /* background-color: #007bff; 배경색: 파란색 */
         color: #000000; /* 글자색: 검정색 */
-        border: none; /* 테두리 제거 */
-        padding: 2px 3px; /* 내부 여백 설정 */
+        border: black;
+        padding: 1px 1px; /* 내부 여백 설정 */
         cursor: pointer; /* 커서 스타일 변경 */
     	}
 		.button-container {
@@ -110,7 +110,7 @@
                 '   <h3>마커 정보</h3>',
                 '   <p>주소: ' + labelContent + '<br>',
                 '       좌표: ' + lat + ', ' + lng + '</p>',
-				'   <div class="button-container" style="width: 100%; text-align: center; padding: 10px;"><button class="copy-button" style="padding: 5px 10px;" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
+				'   <div class="button-container" style="width: 50%; text-align: center; padding: 1px;"><button class="copy-button" style="padding: 1px 1px;" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
 				// '   <div class="button-container"><button class="copy-button" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
                 '</div>'
             ].join('');
