@@ -43,7 +43,7 @@
 <body class="is-preload">
     <div class="container">
         <section class="section" id="section-3">
-            <h1>의류수거함18</h1>
+            <h1>의류수거함19</h1>
 
             <!-- 구 선택 목록 추가 -->
             <label for="selectGu"> 구 선택: </label>
@@ -88,16 +88,34 @@
                 url: csvFile,
                 dataType: 'text',
                 success: function (data) {
+
+
                     var lines = data.split('\n');
-					var bounds = new naver.maps.LatLngBounds();
+                    var bounds = new naver.maps.LatLngBounds();
 
                     for (var i = 0; i < lines.length; i++) {
                         var lineData = lines[i].split(',');
-                        createMarker(String(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
-                        console.log(lineData[0]);
-						bounds.extend(new naver.maps.LatLng(lat, lng));
+                        var lat = parseFloat(lineData[1]);
+                        var lng = parseFloat(lineData[2]);
+
+                        createMarker(String(lineData[0]), lat, lng);
+                        bounds.extend(new naver.maps.LatLng(lat, lng));
                     }
-					map.fitBounds(bounds);
+
+                    // 해당 구의 모든 마커가 보이도록 지도 중심과 줌 조정
+                    map.fitBounds(bounds);
+
+
+                    // var lines = data.split('\n');
+					// var bounds = new naver.maps.LatLngBounds();
+
+                    // for (var i = 0; i < lines.length; i++) {
+                    //     var lineData = lines[i].split(',');
+                    //     createMarker(String(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
+                    //     console.log(lineData[0]);
+					// 	bounds.extend(new naver.maps.LatLng(lat, lng));
+                    // }
+					// map.fitBounds(bounds);
                 }
             });
         }
