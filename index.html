@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>의류수거함 어디있지?</title>
+    <title>의류수거함 검색</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
@@ -13,8 +13,8 @@
 
     <style>
         #map {
-            width: 70%;
-            height: 300px;
+            width: 80%;
+            height: 500px;
             margin: auto;
         }
 
@@ -22,40 +22,121 @@
         .iw_inner {
             color: black;
         }
+		.copy-button {
+        background-color: #4247A6; 
+        color:  black; /* 글자색: 검정색 */
+        border: black;
+        padding: 1px; /* 내부 여백 설정 */
+        cursor: pointer; /* 커서 스타일 변경 */
+		appearance: none;
+    	}
+		.button-container {
+        text-align: center;
+		color:  black;
+    	}
     </style>
-    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2zcj0zqnez"></script>
+    <script type="text/javascript"
+        src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=2zcj0zqnez"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body class="is-preload">
     <div class="container">
         <section class="section" id="section-3">
-            <h1>오시는 길6</h1>
+
+            <h1>의류수거함21</h1>
+
+            <!-- 구 선택 목록 추가 -->
+            <label for="selectGu"> 지역구를 선택하세요 </label>
+            <select id="selectGu">
+                <option value="data/Seoul_Gangnam.csv">서울시 강남구</option>
+				<option value="data/Seoul_Gangdong.csv">서울시 강동구</option>
+				<option value="data/Seoul_Gwanak.csv">서울시 관악구</option>
+				<option value="data/Seoul_Gwangjin.csv">서울시 광진구</option>
+				<option value="data/Seoul_Guro.csv">서울시 구로구</option>
+				<option value="data/Seoul_Geumcheon.csv">서울시 금천구</option>
+				<option value="data/Seoul_Nowon.csv">서울시 노원구</option>
+				<option value="data/Seoul_Dongdaemun.csv">서울시 동대문구</option>
+				<option value="data/Seoul_Dongjak.csv">서울시 동작구</option>
+				<option value="data/Seoul_Mapo.csv">서울시 마포구</option>
+				<option value="data/Seoul_Seodaemun.csv">서울시 서대문구</option>
+				<option value="data/Seoul_Seocho.csv">서울시 서초구</option>
+				<option value="data/Seoul_Songpa.csv">서울시 송파구</option>
+				<option value="data/Seoul_Yangcheon.csv">서울시 양천구</option>
+				<option value="data/Seoul_Yeongdeungpo.csv">서울시 영등포구</option>
+				<option value="data/Seoul_Eunpyeong.csv">서울시 은평구</option>
+            </select>
+
+            <button onclick="getUserLocation()">현재 위치 확인</button>
             <div id="map"></div>
-            <code id="snippet" class="snippet"></code>
-            <div id="con"></div>
+            <!-- <code id="snippet" class="snippet"></code> -->
         </section>
     </div>
 
     <script>
         var mapOptions = {
             center: new naver.maps.LatLng(37.5665, 126.9780),
-            zoom: 10
+            zoom: 12
         };
 
         var map = new naver.maps.Map('map', mapOptions);
+        var markers = [];
+        var userCircle;
 
-        $.ajax({
-            url: 'data.csv',
-            dataType: 'text',
-            success: function (data) {
-                var lines = data.split('\n');
-                for (var i = 0; i < lines.length; i++) {
-                    var lineData = lines[i].split(',');
-                    createMarker(parseString(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
-                }
-            }
+
+        loadData('data_dongjak.csv');
+
+        document.getElementById('selectGu').addEventListener('change', function () {
+            var selectedFile = this.value;
+            loadData(selectedFile);
         });
+
+        function loadData(csvFile) {
+            if (markers && markers.length > 0) {
+                markers.forEach(function (marker) {
+                    marker.setMap(null);
+                });
+            }
+
+            $.ajax({
+                url: csvFile,
+                dataType: 'text',
+                success: function (data) {
+
+
+                    var lines = data.split('\n');
+                    var bounds = new naver.maps.LatLngBounds();
+
+                    for (var i = 0; i < lines.length; i++) {
+						var lineData = lines[i].split(',');
+						
+						// Check if latitude and longitude values are present and not empty
+						if (lineData[1] && lineData[2]) {
+							var lat = parseFloat(lineData[1]);
+							var lng = parseFloat(lineData[2]);
+
+							createMarker(String(lineData[0]), lat, lng);
+							bounds.extend(new naver.maps.LatLng(lat, lng));
+						}
+					}
+
+                    // 해당 구의 모든 마커가 보이도록 지도 중심과 줌 조정
+                    map.fitBounds(bounds);
+
+
+                    // var lines = data.split('\n');
+					// var bounds = new naver.maps.LatLngBounds();
+
+                    // for (var i = 0; i < lines.length; i++) {
+                    //     var lineData = lines[i].split(',');
+                    //     createMarker(String(lineData[0]), parseFloat(lineData[1]), parseFloat(lineData[2]));
+                    //     console.log(lineData[0]);
+					// 	bounds.extend(new naver.maps.LatLng(lat, lng));
+                    // }
+					// map.fitBounds(bounds);
+                }
+            });
+        }
 
         function createMarker(labelContent, lat, lng) {
             var markerOptions = {
@@ -64,12 +145,15 @@
             };
 
             var marker = new naver.maps.Marker(markerOptions);
+            markers.push(marker);
 
             var contentString = [
                 '<div class="iw_inner">',
                 '   <h3>마커 정보</h3>',
-                '   <p>마커 내용: ' + labelContent + '<br>',
+                '   <p style="margin-bottom: 5px;">주소: ' + labelContent + '<br>',
                 '       좌표: ' + lat + ', ' + lng + '</p>',
+				'   <div class="button-container" style="width: 100%; padding: 1px;"><button class="copy-button" style="padding: 1px 1px;" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
+				// '   <div class="button-container"><button class="copy-button" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
                 '</div>'
             ].join('');
 
@@ -82,8 +166,74 @@
                     infowindow.close();
                 } else {
                     infowindow.open(map, marker);
+					 // infowindow  열릴 때, 버튼을 가운데 정렬
+					 var buttonContainer = infowindow.getContentElement().querySelector('.button-container');
+            		buttonContainer.style.textAlign = 'center';
                 }
             });
+        }
+		function copyAddress(address) {
+			 // 주소를 클립보드에 복사하는 코드
+			 var dummy = document.createElement("textarea");
+			document.body.appendChild(dummy);
+			dummy.value = address;
+			dummy.select();
+			document.execCommand("copy");
+			document.body.removeChild(dummy);
+
+			// 팝업 알림 띄우기
+			var popup = document.createElement("div");
+			popup.style.position = "fixed";
+			popup.style.bottom = "10px";
+			popup.style.left = "50%";
+			popup.style.transform = "translateX(-50%)";
+			popup.style.backgroundColor = "#4247A6";
+			popup.style.color = "white";
+			popup.style.padding = "10px";
+			popup.style.borderRadius = "5px";
+			popup.style.zIndex = "9999";
+			popup.textContent = "클립보드에 복사되었습니다";
+
+			document.body.appendChild(popup);
+
+			// 2초 뒤에 팝업 알림 닫기
+			setTimeout(function () {
+				document.body.removeChild(popup);
+			}, 2000);
+	}
+				
+
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var userLatLng = new naver.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                    // 이전에 생성된 파란 원 제거
+                    if (userCircle) {
+                        userCircle.setMap(null);
+                    }
+
+                    // 새로운 파란 원 생성
+                    userCircle = new naver.maps.Circle({
+                        map: map,
+                        center: userLatLng,
+                        radius: 100,  // 반경 100m
+                        strokeColor: '#00f',
+                        strokeOpacity: 0.3,
+                        strokeWeight: 1,
+                        fillColor: '#00f',
+                        fillOpacity: 0.1
+                    });
+
+                    map.setCenter(userLatLng);  // 지도의 중심을 유저의 현재 위치로 설정
+					//지도 확대
+					map.setZoom(15);
+                }, function (error) {
+                    console.error('Error getting user location:', error);
+                });
+            } else {
+                console.error('Geolocation is not supported by this browser.');
+            }
         }
     </script>
 </body>
