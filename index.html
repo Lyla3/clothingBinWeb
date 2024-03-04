@@ -35,6 +35,14 @@
         .iw_inner {
             color: black;
         }
+		.close-button {
+        background-color: #4247A6; 
+        color:  black; /* 글자색: 검정색 */
+        border: black;
+        padding: 1px; /* 내부 여백 설정 */
+        cursor: pointer; /* 커서 스타일 변경 */
+		appearance: none;
+    	}
 		.copy-button {
         background-color: #4247A6; 
         color:  black; /* 글자색: 검정색 */
@@ -170,12 +178,12 @@
 
             var contentString = [
 				'<div class="iw_inner">',
-				'   <h3>마커 정보</h3>',
+				'       <button class="close-button" style="padding: 1px 1px;" onclick="closeInfoWindow()">X</button>',
 				'   <p style="margin-bottom: 5px;">주소: ' + labelContent + '<br>',
 				'       좌표: ' + lat + ', ' + lng + '</p>',
 				'   <div class="button-container" style="width: 100%; padding: 1px;">',
 				'       <button class="copy-button" style="padding: 1px 1px;" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button>',
-				'       <button class="close-button" style="padding: 1px 1px;" onclick="closeInfoWindow()">X</button>',
+				
 				'   </div>',
 				'</div>'
 				// '   <div class="button-container"><button class="copy-button" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
