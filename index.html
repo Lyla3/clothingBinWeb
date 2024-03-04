@@ -43,33 +43,33 @@
 <body class="is-preload">
     <div class="container">
         <section class="section" id="section-3">
-            <h1>의류수거함20</h1>
+            <h1>의류수거함21</h1>
 
             <!-- 구 선택 목록 추가 -->
-            <label for="selectGu"> 구 선택: </label>
+            <label for="selectGu"> 지역구를 선택하세요 </label>
             <select id="selectGu">
-                <option value="data/Seoul_Gangnam.csv">강남구</option>
-				<option value="data/Seoul_Gangdong.csv">강동구</option>
-				<option value="data/Seoul_Gwanak.csv">관악구</option>
-				<option value="data/Seoul_Gwangjin.csv">광진구</option>
-				<option value="data/Seoul_Guro.csv">구로구</option>
-				<option value="data/Seoul_Geumcheon.csv">금천구</option>
-				<option value="data/Seoul_Nowon.csv">노원구</option>
-				<option value="data/Seoul_Dongdaemun.csv">동대문구</option>
-				<option value="data/Seoul_Dongjak.csv">동작구</option>
-				<option value="data/Seoul_Mapo.csv">마포구</option>
-				<option value="data/Seoul_Seodaemun.csv">서대문구</option>
-				<option value="data/Seoul_Seocho.csv">서초구</option>
-				<option value="data/Seoul_Songpa.csv">송파구</option>
-				<option value="data/Seoul_Yangcheon.csv">양천구</option>
-				<option value="data/Seoul_Yeongdeungpo.csv">영등포구</option>
-				<option value="data/Seoul_Eunpyeong.csv">은평구</option>
+                <option value="data/Seoul_Gangnam.csv">서울시 강남구</option>
+				<option value="data/Seoul_Gangdong.csv">서울시 강동구</option>
+				<option value="data/Seoul_Gwanak.csv">서울시 관악구</option>
+				<option value="data/Seoul_Gwangjin.csv">서울시 광진구</option>
+				<option value="data/Seoul_Guro.csv">서울시 구로구</option>
+				<option value="data/Seoul_Geumcheon.csv">서울시 금천구</option>
+				<option value="data/Seoul_Nowon.csv">서울시 노원구</option>
+				<option value="data/Seoul_Dongdaemun.csv">서울시 동대문구</option>
+				<option value="data/Seoul_Dongjak.csv">서울시 동작구</option>
+				<option value="data/Seoul_Mapo.csv">서울시 마포구</option>
+				<option value="data/Seoul_Seodaemun.csv">서울시 서대문구</option>
+				<option value="data/Seoul_Seocho.csv">서울시 서초구</option>
+				<option value="data/Seoul_Songpa.csv">서울시 송파구</option>
+				<option value="data/Seoul_Yangcheon.csv">서울시 양천구</option>
+				<option value="data/Seoul_Yeongdeungpo.csv">서울시 영등포구</option>
+				<option value="data/Seoul_Eunpyeong.csv">서울시 은평구</option>
             </select>
 
             <button onclick="getUserLocation()">현재 위치 확인</button>
 
             <div id="map"></div>
-            <code id="snippet" class="snippet"></code>
+            <!-- <code id="snippet" class="snippet"></code> -->
         </section>
     </div>
 
@@ -107,13 +107,17 @@
                     var bounds = new naver.maps.LatLngBounds();
 
                     for (var i = 0; i < lines.length; i++) {
-                        var lineData = lines[i].split(',');
-                        var lat = parseFloat(lineData[1]);
-                        var lng = parseFloat(lineData[2]);
+						var lineData = lines[i].split(',');
+						
+						// Check if latitude and longitude values are present and not empty
+						if (lineData[1] && lineData[2]) {
+							var lat = parseFloat(lineData[1]);
+							var lng = parseFloat(lineData[2]);
 
-                        createMarker(String(lineData[0]), lat, lng);
-                        bounds.extend(new naver.maps.LatLng(lat, lng));
-                    }
+							createMarker(String(lineData[0]), lat, lng);
+							bounds.extend(new naver.maps.LatLng(lat, lng));
+						}
+					}
 
                     // 해당 구의 모든 마커가 보이도록 지도 중심과 줌 조정
                     map.fitBounds(bounds);
