@@ -169,13 +169,17 @@
             markers.push(marker);
 
             var contentString = [
-                '<div class="iw_inner">',
-                '   <h3>마커 정보</h3>',
-                '   <p style="margin-bottom: 5px;">주소: ' + labelContent + '<br>',
-                '       좌표: ' + lat + ', ' + lng + '</p>',
-				'   <div class="button-container" style="width: 100%; padding: 1px;"><button class="copy-button" style="padding: 1px 1px;" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
+				'<div class="iw_inner">',
+				'   <h3>마커 정보</h3>',
+				'   <p style="margin-bottom: 5px;">주소: ' + labelContent + '<br>',
+				'       좌표: ' + lat + ', ' + lng + '</p>',
+				'   <div class="button-container" style="width: 100%; padding: 1px;">',
+				'       <button class="copy-button" style="padding: 1px 1px;" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button>',
+				'       <button class="close-button" style="padding: 1px 1px;" onclick="closeInfoWindow()">X</button>',
+				'   </div>',
+				'</div>'
 				// '   <div class="button-container"><button class="copy-button" onclick="copyAddress(\'' + labelContent + '\')">주소복사</button></div>',
-                '</div>'
+                // '</div>'
             ].join('');
 
             var infowindow = new naver.maps.InfoWindow({
@@ -193,6 +197,12 @@
                 }
             });
         }
+
+		// infowindow 닫기 함수
+		function closeInfoWindow() {
+			infowindow.close();
+		}
+
 		function copyAddress(address) {
 			 // 주소를 클립보드에 복사하는 코드
 			 var dummy = document.createElement("textarea");
