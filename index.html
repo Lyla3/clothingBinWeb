@@ -43,6 +43,7 @@
 <body class="is-preload">
     <div class="container">
         <section class="section" id="section-3">
+
             <h1>의류수거함21</h1>
 
             <!-- 구 선택 목록 추가 -->
@@ -67,7 +68,6 @@
             </select>
 
             <button onclick="getUserLocation()">현재 위치 확인</button>
-
             <div id="map"></div>
             <!-- <code id="snippet" class="snippet"></code> -->
         </section>
@@ -82,6 +82,7 @@
         var map = new naver.maps.Map('map', mapOptions);
         var markers = [];
         var userCircle;
+
 
         loadData('data_dongjak.csv');
 
